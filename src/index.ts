@@ -61,6 +61,7 @@ import { trackingIDHandler } from './api/tracking-id/handler'
 import { dashboardQueriesHandler } from './api/dashboards/handler'
 import { fontsHandler } from './api/fonts/handler'
 import { certificateConfigurationHandler } from './api/certificate-configuration/handler'
+import { mosipExternalValidation } from '@opencrvs-mosip/country-config'
 
 export interface ITokenPayload {
   sub: string
@@ -546,6 +547,8 @@ export async function createServer() {
       description: 'Server static files for client'
     }
   })
+
+  server.route(mosipExternalValidation({ url: 'http://localhost:2024' }))
 
   server.ext({
     type: 'onRequest',
